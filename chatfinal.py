@@ -69,7 +69,7 @@ def show_chat(message):
                             f'<b style="color: #fff;">有求必应的多模态:</b> {"不是我做的"}</div>')
         put_text(" ")
         put_text(" ")
-        put_text(" ")
+        
   
     scroll_to(scope='1',position='bottom')
 
