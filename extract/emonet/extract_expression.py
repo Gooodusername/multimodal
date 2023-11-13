@@ -58,7 +58,7 @@ def extract():
 
     # Create the data loaders
     transform_image = transforms.Compose([transforms.ToTensor(),
-                                          transforms.Resize(image_size, image_size)])
+                                          transforms.Resize([image_size, image_size])]) #这里是个列表
 
 
     print(f'Testing the model on {n_expression} emotional classes')
