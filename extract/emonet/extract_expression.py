@@ -64,7 +64,9 @@ def extract():
     print(f'Testing the model on {n_expression} emotional classes')
 
     print('Loading the data')
-    emo_data = glob.glob('./data/*/*/*png')
+    # emo_data = glob.glob('./data/*/*/*jpg')#改成了jpg
+    emo_data = glob.glob('C:/Users/A couputer/Documents/code/extract/emonet/emonet/data/1/*jpg')#改成了jpg
+
     emo_dataset = BaseDataset(emo_data, transform=transform_image)
 
 
@@ -90,7 +92,9 @@ def extract():
             valence = outputs['valence']
             arousal = outputs['arousal']
             save_expression(pathes, expression, valence, arousal)
+            print(expression)
 
 
 if __name__ == '__main__':
     extract()
+     
