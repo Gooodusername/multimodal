@@ -15,6 +15,9 @@ import os
 from PIL import Image
 from torch.utils.data import Dataset
 
+import cv2
+import time
+
 class BaseDataset(Dataset):
     def __init__(self, image_list, transform=None):
 
@@ -76,10 +79,10 @@ def extract():
     print(f'Testing the model on {n_expression} emotional classes')
 
     print('Loading the data')
-    emo_data = glob.glob('.\\data\\*\\*\\*jpg')
-    # emo_data = glob.glob('C:/Users/A couputer/Documents/code/extract/emonet/emonet/data/Manually/*.jpg')#改成了jpg 
+    # emo_data = glob.glob('.\\data\\*\\*\\*.jpg')
+    emo_data = glob.glob('C:/Users/A couputer/Documents/code/extract/emonet/emonet/data/*/*.jpg')#改成了jpg 
     emo_dataset = BaseDataset(emo_data, transform=transform_image)
-
+    print(emo_data)
 
     test_dataloader = DataLoader(emo_dataset, batch_size=batch_size, shuffle=False, num_workers=n_workers)
 
@@ -107,8 +110,26 @@ def extract():
             print('expression=',expression)
             print('valence=',valence)
             print('arousal=',arousal)
-            save_expression(pathes, expression, valence, arousal)
+            # save_expression(pathes, expression, valence, arousal)
 
+def cap_pit():
+    cap=cv2.VideoCapture(0)
 
+    if not cap.isOpened():
+        print('你看看你本地摄像头是不是坏了')
+
+    group=0
+    num=0
+    start_time=time.time()
+
+    while True:
+        iswork,frame=cap.read()
+        if not iswork:
+            print('寄了')
+            break
+            
+        cv2.imshow('cap',frame)
+        if cv2.waitKey(1) & 0xFF==ord('q'):
+            break
 if __name__ == '__main__':
     extract()
