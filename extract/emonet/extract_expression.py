@@ -128,8 +128,9 @@ def cap_pit():
             print('寄了')
             break
             
-        cv2.imshow('cap',frame)
         if cv2.waitKey(1) & 0xFF==ord('q'):
             break
+        
+    
 if __name__ == '__main__':
     extract()

@@ -13,10 +13,14 @@ def cap_pit():
 
     while True:
         iswork,frame=cap.read()
+        cv2.imshow('cap',frame)
         if not iswork:
             print('寄了')
             break
             
-        cv2.imshow('cap',frame)
+        
         if cv2.waitKey(1) & 0xFF==ord('q'):
             break
+
+if __name__=="__main__":
+    cap_pit()
