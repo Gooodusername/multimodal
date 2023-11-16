@@ -30,7 +30,7 @@ with mp_face_detection.FaceDetection(
 
   while cap.isOpened():
     success, image = cap.read()
-    if image=None:
+    if image==None:
       continue
     if not success:
       print("Ignoring empty camera frame.")
