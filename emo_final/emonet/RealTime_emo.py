@@ -6,7 +6,7 @@ import numpy as np
 from pathlib import Path
 
 emo_dic = {0:'Neutral',1:'Happy',2:'Sad',3:'Surprise',4:'Fear',5:'Disgust',6:'Anger', 7:'Contempt'}
-rec_weight = [.8, 80., 1. ,50., .8, 1., 1., 100.]
+rec_weight = [.5, 80., 1. ,50., .8, 1., 1., 100.]
 
 n_expression = 8
 device = 'cuda:0'
@@ -30,7 +30,7 @@ with mp_face_detection.FaceDetection(
 
   while cap.isOpened():
     success, image = cap.read()
-    if image==None:
+    if image is None:
       continue
     if not success:
       print("Ignoring empty camera frame.")
