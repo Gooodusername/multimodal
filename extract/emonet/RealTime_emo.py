@@ -15,19 +15,21 @@ mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
 
 state_dict_path = Path(__file__).parent.joinpath('pretrained', f'emonet_{n_expression}.pth')
-
+#__file__是一个特殊变量，用来表示当前的路径。Path(__file__)会创建一个当前路径的对象。
 print(f'Loading the model from {state_dict_path}.')
-state_dict = torch.load(str(state_dict_path), map_location='cpu')
+state_dict = torch.load(str(state_dict_path), map_location='cuda:0')
 state_dict = {k.replace('module.',''):v for k,v in state_dict.items()}
-
+#字典递推式，k.repalace把所有的module的都替换为空格，items函数允许能够同时访问键与值
 emo_net = EmoNet(n_expression=n_expression).to(device)
+#to函数，可以把张量和模型转移到某个设备上
 emo_net.load_state_dict(state_dict, strict=False)
+#strict参数如果设置为false的话，不会严格的去匹配的键值，可以忽略一些小的错误
 emo_net.eval()
-
+#将模型设置为评估模式，它确保在使用该模型时表现的与训练时候一样有效。但是什么禁用Dropout层，固定BatchNorm层
 cap = cv2.VideoCapture(0)
 with mp_face_detection.FaceDetection(
     model_selection=0, min_detection_confidence=0.5) as face_detection:
-
+#是mediapipe库的函数，model_selection=0表示用的是哪一个模型
   while cap.isOpened():
     success, image = cap.read()
 

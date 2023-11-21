@@ -1,5 +1,5 @@
 from pywebio import start_server
-from pywebio.output import put_text, put_html, put_buttons, clear, scroll_to, put_image, toast,use_scope
+from pywebio.output import put_text, put_html, put_buttons, clear, scroll_to, put_image, toast,use_scope,put_column
 from pywebio_battery import put_audio
  
 from pywebio.input import input, TEXT
@@ -160,11 +160,14 @@ def show_chat(message):
                             f'<b style="color: #fff;">有求必应的多模态:</b> </div>')
             
             aud=get_aduio_client(message)
-            put_image(img,width='300px')
-            
             with open('./audio.wav', 'rb') as file:
-                mp3_bytes = file.read()
-                put_audio(mp3_bytes)
+                wav_bytes = file.read()
+            put_column([
+                        put_image(img, width='300px'),  # 第一行只有图像
+                        put_audio(wav_bytes)  # 第二行只有音频
+                        ])    
+            file.close
+                
         
         # else:
         
